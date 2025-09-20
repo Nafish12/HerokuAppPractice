@@ -6,6 +6,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.devtools.v137.page.Page;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -13,7 +14,7 @@ import java.time.Duration;
 
 public class FloatingMenu {
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws InterruptedException{
 
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
@@ -23,8 +24,13 @@ public class FloatingMenu {
 
         boolean homeButton = driver.findElement(By.cssSelector("a[href='#home']")).isDisplayed();
 
-        Actions actions = new Actions(driver);
-        actions.sendKeys(Keys.PAGE_DOWN).perform();
+//        Actions actions = new Actions(driver);
+//        actions.sendKeys(Keys.END).perform();
+
+        WebElement body = driver.findElement(By.cssSelector("body"));
+        body.sendKeys(Keys.END);
+
+        Thread.sleep(2000);
 
         boolean homeButtonStillDisplay = driver.findElement(By.cssSelector("a[href='#home']")).isDisplayed();
 
